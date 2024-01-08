@@ -1,7 +1,6 @@
-import datetime
-
 from .database import Base
-from sqlalchemy import Column, String, Integer, DateTime, Boolean
+from sqlalchemy import Column, String, Integer, TIMESTAMP, Boolean
+from datetime import datetime
 
 
 class Todo(Base):
@@ -10,7 +9,4 @@ class Todo(Base):
     title = Column(String)
     description = Column(String)
     completed = Column(Boolean, default=False)
-    created_at = Column(DateTime, default=datetime.datetime.now)
-
-
-
+    created_at = Column(TIMESTAMP, default=datetime.now)

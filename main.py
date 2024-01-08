@@ -1,17 +1,13 @@
-import datetime
-
 from fastapi.exceptions import HTTPException
-
 from fastapi import FastAPI, Depends, Path
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 from starlette import status
-
 from app import models
 from app.database import engine, SessionLocal
 from typing import Annotated
-
 from app.models import Todo
+
 
 app = FastAPI()
 
@@ -32,8 +28,7 @@ db_dependency = Annotated[Session, Depends(get_database)]
 class TodoItem(BaseModel):
     title: str = Field(min_length=3)
     description: str = Field(min_length=3, max_length=255)
-    completed: bool
-    created_at: datetime.datetime
+    completed: bool = Field(default=False)
 
 
 @app.get("/")
@@ -43,7 +38,7 @@ async def todos(db: db_dependency):
 
 @app.get("/{id}")
 async def todo_detail(db: db_dependency, todo_id: int):
-    todo_model = db.query(Todo).filter(Todo.id == todo_id).first()
+    todo_model = db.query(Todo).filter(Todo.id is todo_id).first()
     if todo_model is not None:
         return todo_model
     else:
@@ -61,7 +56,7 @@ async def todo_create(db: db_dependency, todo: TodoItem):
 
 @app.put("/todo/{todo_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def todo_edit(db: db_dependency, todo_id: int, todo: TodoItem):
-    todo_model = db.query(Todo).filter(todo_id == Todo.id).first()
+    todo_model = db.query(Todo).filter(todo_id is Todo.id).first()
     if todo_model is None:
         raise HTTPException(status_code=404, detail="Todo not founded")
 
@@ -76,7 +71,7 @@ async def todo_edit(db: db_dependency, todo_id: int, todo: TodoItem):
 
 @app.delete("/todo/{todo_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def todo_delete(db: db_dependency, todo_id: int = Path(gt=0)):
-    todo_model = db.query(Todo).filter(todo_id == Todo.id).first()
+    todo_model = db.query(Todo).filter(todo_id is Todo.id).first()
     if todo_model is None:
         raise HTTPException(status_code=404, detail="Todo not founded")
 
