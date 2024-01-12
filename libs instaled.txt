@@ -1,0 +1,3 @@
+pip install "passlib[bcrypt]"
+pip install python-multipart
+pip install "python-jose[cryptography]"

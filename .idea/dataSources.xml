@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="todo" uuid="68ac61b1-b7d5-43c1-a115-b3dd68ffdcbf">
+    <data-source source="LOCAL" name="todobase" uuid="ee98fbf6-02a2-4c9e-97b2-4518e66a7769">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\normurodovwork\PycharmProjects\fastApiProject1\todo.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\normurodovwork\PycharmProjects\fastApiProject1\todobase.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
